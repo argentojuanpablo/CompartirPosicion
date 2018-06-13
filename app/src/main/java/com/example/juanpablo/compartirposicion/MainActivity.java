@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
             @Override
             public void onClick(View v) {
 
-                compartirPosicion(8.3,8.9);
+                //compartirPosicion(8.3,8.9);
                 // Acquire a reference to the system Location Manager
                 LocationManager locationManager = (LocationManager) MainActivity.this.getSystemService(Context.LOCATION_SERVICE);
 
@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
                         Double lat = location.getLatitude();
                         Double lon = location.getLongitude();
                         tvUbicacion.setText(""+lat+" "+lon);
-
+                        compartirPosicion();
                         //compartirPosicion(lat,lon);
                         //compartirPosicion(8.3,8.9);
 
@@ -122,14 +122,24 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
         }
     }
 
-    private void compartirPosicion( Double lat, Double lon ){
+    private void compartirPosicion( ){
 
-        String url = "http://192.168.0.6/login/comunicacion.php?x="+lat.toString()+"&y="+lon.toString();
-
+        //String url = "http://192.168.0.6/login/comunicacion.php?x="+lat.toString()+"&y="+lon.toString();
+        String url = "http://192.168.0.6/login/comunicacion.php?";
         jrq = new JsonObjectRequest(Request.Method.GET,url,null,this,this);
         rq.add(jrq);
     }
 
+
+/*
+    private void compartirPosicion( Double lat, Double lon ){
+
+        //String url = "http://192.168.0.6/login/comunicacion.php?x="+lat.toString()+"&y="+lon.toString();
+        String url = "http://192.168.0.6/login/comunicacion.php?"
+        jrq = new JsonObjectRequest(Request.Method.GET,url,null,this,this);
+        rq.add(jrq);
+    }
+*/
 
     @Override
     public void onErrorResponse(VolleyError error) {
