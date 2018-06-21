@@ -29,6 +29,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
+import java.util.ArrayList;
+
 import static android.widget.Toast.makeText;
 import static java.security.AccessController.getContext;
 
@@ -39,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
     TextView tvUbicacion;
     TextView tvLatitud;
     TextView tvLongitud;
+    String[] arr;
 
     RequestQueue rq;
     JsonRequest jrq;
@@ -55,11 +58,13 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
         tvLongitud = (TextView)findViewById(R.id.tvLongitud);
         btnGPS = (Button)findViewById(R.id.btnGPS);
 
+        rq = Volley.newRequestQueue(this);
+
         btnGPS.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                //compartirPosicion(8.3,8.9);
+
                 // Acquire a reference to the system Location Manager
                 LocationManager locationManager = (LocationManager) MainActivity.this.getSystemService(Context.LOCATION_SERVICE);
 
@@ -72,9 +77,10 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
                         Double lat = location.getLatitude();
                         Double lon = location.getLongitude();
                         tvUbicacion.setText(""+lat+" "+lon);
-                        compartirPosicion();
-                        //compartirPosicion(lat,lon);
-                        //compartirPosicion(8.3,8.9);
+
+                        compartirPosicion(lat,lon);
+
+                        //compartirPosicion();
 
 
                     }
@@ -121,43 +127,54 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
             }
         }
     }
-
+/*
     private void compartirPosicion( ){
 
-        //String url = "http://192.168.0.6/login/comunicacion.php?x="+lat.toString()+"&y="+lon.toString();
-        String url = "http://192.168.0.6/login/comunicacion.php?";
+       String url = "http://192.168.0.40/login/comunicacion.php?";
         jrq = new JsonObjectRequest(Request.Method.GET,url,null,this,this);
+
         rq.add(jrq);
     }
 
+*/
 
-/*
     private void compartirPosicion( Double lat, Double lon ){
 
-        //String url = "http://192.168.0.6/login/comunicacion.php?x="+lat.toString()+"&y="+lon.toString();
-        String url = "http://192.168.0.6/login/comunicacion.php?"
+        String url = "http://192.168.0.42/login/comutestfin2.php?x="+lat.toString()+"&y="+lon.toString();
+
         jrq = new JsonObjectRequest(Request.Method.GET,url,null,this,this);
         rq.add(jrq);
     }
-*/
+
 
     @Override
     public void onErrorResponse(VolleyError error) {
 
-        Toast.makeText(this,"error: "+ error.toString(), Toast.LENGTH_LONG).show();
+        Toast.makeText(this,"errorcito: "+ error.toString(), Toast.LENGTH_LONG).show();
 
     }
 
     @Override
     public void onResponse(JSONObject response) {
-
+/*
         JSONArray jsonArray = response.optJSONArray("coordenadas");
         JSONObject jsonObject = null;
 
         try{
             jsonObject = jsonArray.getJSONObject(0);
             tvLatitud.setText(jsonObject.optString("latitud"));
-            tvLongitud.setText(jsonObject.optString("longitud"));
+            //tvLongitud.setText(jsonObject.optString("longitud"));
+
+            arr = new String[jsonArray.length()];
+            for(int i = 0; i < jsonArray.length(); i++){
+                //arr[i] = jsonArray.getString(i);
+                arr[i] = jsonArray.getJSONObject(i).toString();
+                //arr[i] = jsonArray.getString(0);
+                }
+
+            tvLatitud.setText(arr[0]);
+           // tvLongitud.setText(arr[1]);
+
 
         }catch (JSONException e){
             e.printStackTrace();
@@ -165,7 +182,9 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
 
         Toast.makeText(this,"todo ok: ", Toast.LENGTH_SHORT).show();
 
+    }*/
     }
+
 }
 
 
