@@ -140,7 +140,7 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
 
     private void compartirPosicion( Double lat, Double lon ){
 
-        String url = "http://192.168.0.42/login/comutestfin2.php?x="+lat.toString()+"&y="+lon.toString();
+        String url = "http://192.168.0.85/login/actualizarPosicion.php?x="+lat.toString()+"&y="+lon.toString();
 
         jrq = new JsonObjectRequest(Request.Method.GET,url,null,this,this);
         rq.add(jrq);
@@ -150,7 +150,7 @@ public class MainActivity extends AppCompatActivity implements Response.Listener
     @Override
     public void onErrorResponse(VolleyError error) {
 
-        Toast.makeText(this,"errorcito: "+ error.toString(), Toast.LENGTH_LONG).show();
+        Toast.makeText(this,"errorcito: "+ error.toString(), Toast.LENGTH_SHORT).show();
 
     }
 
